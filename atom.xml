@@ -4,13 +4,22 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://quatrix.github.io/atom.xml" rel="self"/>
   <link href="http://quatrix.github.io/"/>
-  <updated>2014-04-05T14:00:51+03:00</updated>
+  <updated>2014-04-05T14:20:17+03:00</updated>
   <id>http://quatrix.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Quatrix]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Legendary 'First Post']]></title>
+    <link href="http://quatrix.github.io/blog/2014/04/05/legendary-first-post/"/>
+    <updated>2014-04-05T14:14:07+03:00</updated>
+    <id>http://quatrix.github.io/blog/2014/04/05/legendary-first-post</id>
+    <content type="html"><![CDATA[<p>Testing. 1. 2. 3.</p>
+]]></content>
+  </entry>
   
 </feed>
