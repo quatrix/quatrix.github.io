@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Generator</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1A1A1A;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #EDEDED;
+    padding: 20px;
+    border-radius: 14px;
+    box-sizing: border-box;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #636363;
+  }
+
+  .input-group label.bold {
+    font-weight: bold;
+  }
+
+  .input-group input[type="text"],
+  .input-group textarea,
+  .input-group select,
+  .input-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #1A1A1A;
+  }
+
+  .input-group .weight {
+    width: 120px;
+    height: 40.5px;
+  }
+
+  .button, .copy-button {
+    background-color: #ff0066;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 15px;
+    width: auto;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #cc0055;
+  }
+
+  .copy-button:hover {
+    background-color: #636363;
+    color: white;
+  }
+
+  .copy-button {
+    background-color: #1A1A1A;
+    color: #EDEDED;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: inline-block;
+    width: auto;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .output {
+    margin-top: 20px;
+  }
+
+  .line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 5px;
+  }
+
+  .label-with-line {
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  #prompt-output,
+  #tech {
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+  }
+
+  #free-text {
+    font-family: Arial, sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Prompt Generator</h1>
+  <div class="input-group">
+    <div class="label-with-line">
+      <label for="href" class="bold">Composition references</label>
+      <div class="line"></div>
+    </div>
+    <label for="href">Href</label>
+    <input type="text" id="href" name="href" placeholder="Place a composition reference">
+  </div>
+  <div class="input-group">
+    <div class="label-with-line">
+      <label for="free-text" class="bold">Text Inputs</label>
+      <div class="line"></div>
+    </div>
+    <label for="free-text">Free text</label>
+    <textarea id="free-text" name="free-text" rows="4" placeholder="Describe your image" style="letter-spacing: 0;"></textarea>
+  </div>
+  <div class="input-group">
+    <label for="exclude" style="color: #636363;">Exclude (Divided by ',')</label>
+    <input type="text" id="exclude" name="exclude" value="text, watermark, deformed hands, fused fingers, photorealism, cartoon">
+  </div>
+  <div class="input-group">
+    <div class="label-with-line">
+      <label for="men" class="bold">Style references</label>
+      <div class="line"></div>
+    </div>
+    <div style="display: flex;">
+      <div style="flex: 2; margin-right: 10px;">
+        <label for="men">Men</label>
+        <input type="text" id="men" name="men" placeholder="www.placeholder1.com" value="https://s.mj.run/nD78OpBqj6o">
+      </div>
+      <div style="flex: 1;">
+        <label for="men-weight">Men Weight</label>
+        <input type="number" id="men-weight" name="men-weight" class="weight" value="0.0" min="-1" max="1" step="0.01">
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <div style="display: flex;">
+      <div style="flex: 2; margin-right: 10px;">
+        <label for="women">Women</label>
+        <input type="text" id="women" name="women" placeholder="www.placeholder2.com" value="https://s.mj.run/mrZjemb7vHY">
+      </div>
+      <div style="flex: 1;">
+        <label for="women-weight">Women Weight</label>
+        <input type="number" id="women-weight" name="women-weight" class="weight" value="0.0" min="-1" max="1" step="0.01">
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <div style="display: flex;">
+      <div style="flex: 2; margin-right: 10px;">
+        <label for="landscape">Landscape</label>
+        <input type="text" id="landscape" name="landscape" placeholder="www.placeholder3.com" value="https://s.mj.run/OqBRBToAtOM">
+      </div>
+      <div style="flex: 1;">
+        <label for="landscape-weight">Landscape Weight</label>
+        <input type="number" id="landscape-weight" name="landscape-weight" class="weight" value="0.0" min="-1" max="1" step="0.01">
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <div style="display: flex;">
+      <div style="flex: 2; margin-right: 10px;">
+        <label for="tech">Tech</label>
+        <input type="text" id="tech" name="tech" placeholder="www.placeholder4.com" value="https://s.mj.run/BMAHQSKtNAg">
+      </div>
+      <div style="flex: 1;">
+        <label for="tech-weight">Tech Weight</label>
+        <input type="number" id="tech-weight" name="tech-weight" class="weight" value="0.0" min="-1" max="1" step="0.01">
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <div class="label-with-line">
+      <label for="create" class="bold">Create</label>
+      <div class="line"></div>
+    </div>
+  </div>
+  <div style="display: flex; align-items: center;">
+    <button class="button" type="submit" onclick="generatePrompt()">Generate</button>
+    <button class="copy-button" type="button" onclick="copyText()">Copy  </button>
+  </div>
+  <div class="output">
+    <label for="prompt-output" class="label-with-line" style="color: #636363; font-size: 12px;">
+      Prompt
+    </label>
+    <textarea id="prompt-output" name="prompt-output" rows="4" readonly style="width: 100%; height: 40.5px;"></textarea>
+  </div>
+</div>
+<script>
+function generatePrompt() {
+  const hrefText = document.getElementById('href').value + ' ';
+  const freeText = document.getElementById('free-text').value;
+  const excludeText = document.getElementById('exclude').value + ' ';
+  let menText = '';
+  let womenText = '';
+  let landscapeText = '';
+  let techText = '';
+
+  if (document.getElementById('men').value) {
+    menText = '--sref ' + document.getElementById('men').value;
+    if (parseFloat(document.getElementById('men-weight').value) !== 0.0) {
+      menText += '::' + document.getElementById('men-weight').value + ' ';
+    } else {
+      menText += ' ';
+    }
+  }
+
+  if (document.getElementById('women').value) {
+    womenText = document.getElementById('women').value;
+    if (parseFloat(document.getElementById('women-weight').value) !== 0.0) {
+      womenText += '::' + document.getElementById('women-weight').value + ' ';
+    } else {
+      womenText += ' ';
+    }
+  }
+
+  if (document.getElementById('landscape').value) {
+    landscapeText = document.getElementById('landscape').value;
+    if (parseFloat(document.getElementById('landscape-weight').value) !== 0.0) {
+      landscapeText += '::' + document.getElementById('landscape-weight').value + ' ';
+    } else {
+      landscapeText += ' ';
+    }
+  }
+
+  if (document.getElementById('tech').value) {
+    techText = document.getElementById('tech').value;
+    if (parseFloat(document.getElementById('tech-weight').value) !== 0.0) {
+      techText += '::' + document.getElementById('tech-weight').value + ' ';
+    } else {
+      techText += ' ';
+    }
+  }
+
+  const promptText = `/imagine prompt: ${hrefText}${freeText} In the style of Ralph McQuarrie, 1960s, sci-fi vibe, space vibe, pink and orange --no ${excludeText}${menText}${womenText}${landscapeText}${techText} --ar 1:1 --v 6.0`;
+
+  document.getElementById('prompt-output').value = promptText;
+}
+
+function copyText() {
+  const promptOutput = document.getElementById('prompt-output');
+  promptOutput.select();
+  document.execCommand('copy');
+}
+</script>
+</body>
+</html>
